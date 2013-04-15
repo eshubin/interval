@@ -1,0 +1,12 @@
+{application, interval,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { interval_app, []}},
+  {env, []}
+ ]}.
