@@ -5,28 +5,28 @@
 %% API
 -export([read/1]).
 
-
 -define(PARSE_FORMAT, "~d\"~d\\~f\\\"").
 
 read(FileName) ->
-  {ok, IO} = file:open(FileName, [read]),
+  {ok, Bin} = file:read_file(FileName),
+%%   {ok, IO} = file:open(FileName, [read]),
   D = orddict:new(),
-  read(IO, D).
+  read(binary_to_list(Bin), D).
 
 
 read(IO, Acc) ->
   case parse(IO) of
-    {{Left, Right}, Float} ->
-      read(IO, orddict:store(Right, {Left, Float}, Acc));
+    {{Left, Right}, Float, Rest} ->
+       read(Rest, orddict:store(Right, {Left, Float}, Acc));
     _ ->
       Acc
   end.
 
 parse(IO) ->
-  case io:fread(IO, "", ?PARSE_FORMAT) of
-    {ok, [Left, Right, Float]} when (Left =< Right) ->
-      {{Left, Right}, Float};
-    eof ->
+  case io_lib:fread(?PARSE_FORMAT, IO) of
+    {ok, [Left, Right, Float], Rest} when (Left =< Right) ->
+      {{Left, Right}, Float, Rest};
+    {more, ?PARSE_FORMAT, 0, _} ->
       eof
   end.
 
