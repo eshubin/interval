@@ -43,7 +43,16 @@ lower_bound_test_() ->
             ?assertEqual({20,20}, {K2, V2}),
             ?assertEqual(none, gb_trees:next(I3))
           end
+        ),
+        ?_test(
+          begin
+            {K1, V1, I2} = gb_trees:next(lower_bound(2, Tree)),
+            ?assertEqual({2,2}, {K1, V1}),
+            {K2, V2, _I3} = gb_trees:next(I2),
+            ?assertEqual({4,4}, {K2, V2})
+          end
         )
+
       ]
     end
   }.
