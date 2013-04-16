@@ -8,6 +8,7 @@ git clone git://github.com/eshubin/interval.git
 build
 --------
 cd interval
+
 ./rebar compile
 
 testing
@@ -19,3 +20,7 @@ launch
 erl -pz ebin
 
 application:start(interval).
+
+try
+-------
+interval:find(45).
