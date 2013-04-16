@@ -46,7 +46,7 @@ interval_srv_test_() ->
   {
     setup,
     fun() ->
-      start_link("../priv/two_intervals")
+      {ok, _} = start_link("../priv/two_intervals")
     end,
     fun(_) ->
       [

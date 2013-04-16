@@ -8,5 +8,5 @@
                   stdlib
                  ]},
   {mod, { interval_app, []}},
-  {env, []}
+  {env, [{filename, "priv/orig_intervals"}]}
  ]}.

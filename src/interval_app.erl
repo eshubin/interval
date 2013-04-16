@@ -10,7 +10,8 @@
 %% ===================================================================
 
 start(_StartType, _StartArgs) ->
-    interval_sup:start_link().
+  {ok, FileName} = application:get_env(filename),
+  interval_sup:start_link(FileName).
 
 stop(_State) ->
     ok.
