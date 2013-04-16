@@ -9,21 +9,20 @@
 
 read(FileName) ->
   {ok, Bin} = file:read_file(FileName),
-%%   {ok, IO} = file:open(FileName, [read]),
   D = orddict:new(),
   read(binary_to_list(Bin), D).
 
 
-read(IO, Acc) ->
-  case parse(IO) of
+read(Str, Acc) ->
+  case parse(Str) of
     {{Left, Right}, Float, Rest} ->
        read(Rest, orddict:store(Right, {Left, Float}, Acc));
-    _ ->
+    eof ->
       Acc
   end.
 
-parse(IO) ->
-  case io_lib:fread(?PARSE_FORMAT, IO) of
+parse(Str) ->
+  case io_lib:fread(?PARSE_FORMAT, Str) of
     {ok, [Left, Right, Float], Rest} when (Left =< Right) ->
       {{Left, Right}, Float, Rest};
     {more, ?PARSE_FORMAT, 0, _} ->
