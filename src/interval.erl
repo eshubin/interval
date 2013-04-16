@@ -5,6 +5,11 @@
 %% API
 -export([find/1]).
 
+-spec find(N) -> 'not_found' | {{Left, Right}, Float} when
+  N::integer(),
+  Left::integer(),
+  Right::integer(),
+  Float::float().
 
 find(N) when is_integer(N) ->
   interval_srv:find(N).
