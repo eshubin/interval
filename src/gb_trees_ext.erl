@@ -14,7 +14,7 @@ lower_bound_1(Key, {Key1, _, Smaller, _} = T, As) when Key < Key1 ->
   lower_bound_1(Key, Smaller, [T | As]);
 lower_bound_1(Key, {Key1, _, _, Bigger}, As) when Key > Key1 ->
   lower_bound_1(Key, Bigger, As);
-lower_bound_1(Key, {Key1, _, _, _} = T, As) when Key =:= Key1 ->
+lower_bound_1(Key, {Key1, _, _, _} = T, As) when Key == Key1 ->
   [T | As];
 lower_bound_1(_, nil, As) ->
   As.
